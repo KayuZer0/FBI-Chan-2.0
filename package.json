@@ -1,5 +1,6 @@
 {
   "name": "fbi-chan",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
