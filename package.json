@@ -1,0 +1,22 @@
+{
+  "name": "fbi-chan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "dotenv": "^16.0.0",
+    "hmtai": "^2.0.9",
+    "jquery": "^3.6.0",
+    "mongoose": "^6.2.10",
+    "node-fetch": "^2.6.7",
+    "wokcommands": "^1.5.3",
+    "xhr2": "^0.2.1"
+  }
+}
