@@ -9,7 +9,7 @@ exports.default = {
     category: "Setup",
     description: "Set the jail role.",
     permissions: ['ADMINISTRATOR'],
-    expectedArgs: '<@User>',
+    expectedArgs: '<@Role>',
     minArgs: 1,
     syntaxError: {
         english: "**Incorrect usage! Use** `{PREFIX}setjail {ARGUMENTS}`"

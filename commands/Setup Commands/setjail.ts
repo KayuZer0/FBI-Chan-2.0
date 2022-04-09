@@ -11,7 +11,7 @@ export default {
 
     permissions: ['ADMINISTRATOR'],
 
-    expectedArgs: '<@User>',
+    expectedArgs: '<@Role>',
     minArgs: 1,
     syntaxError: {
         english: "**Incorrect usage! Use** `{PREFIX}setjail {ARGUMENTS}`"
