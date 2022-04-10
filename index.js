@@ -1,4 +1,7 @@
 "use strict";
+
+const { channel } = require("diagnostics_channel");
+
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -119,6 +122,12 @@ exports.client.on('ready', () => __awaiter(void 0, void 0, void 0, function* () 
 exports.client.on('messageCreate', function (message) {
     var _a, _b, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
+
+        if (message.content.toLowerCase().includes('postarnacu') && !message.author.bot) {
+            message.channel.send("Postarnacu:");
+            message.channel.send("https://tenor.com/view/courage-the-cowardly-dog-house-moon-farm-gif-9328017");
+        }
+
         const user = yield userschema_1.default.findOne({ 'user_id': message.author.id });
         if (user) {
             if (message.content.toLowerCase().includes('xd')) {
