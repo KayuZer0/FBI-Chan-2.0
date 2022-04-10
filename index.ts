@@ -35,7 +35,8 @@ client.on('guildCreate', async (guild) =>{
                     is_officer: false,
                     wanted_lvl: 0,
                     wanted_reason: ' ',
-                    release_time: 0
+                    release_time: 0,
+                    xd_counter: 0
                   }).save()
               }
           }
@@ -114,47 +115,67 @@ client.on('ready', async () =>{
 })
 
 client.on('messageCreate', async function(message) {
-  if (!message.author.bot)
+
+  const user = await userschema.findOne({'user_id': message.author.id})
+
+  if (user)
   {
-    const user = await userschema.findOne({'user_id': message.author.id})
-
-    if (user.wanted_lvl > 0)
+    if (message.content.toLowerCase().includes('xd'))
     {
-      const guild_db = await serverValues.findOne({'server_id': message.guild?.id})
-
-      const user = await userschema.findOne({'user_id': message.author.id})
-
-      message.member?.roles.remove(message.member?.roles.cache) // Aici
-      message.member?.roles.add(guild_db.jail_role)
-
-      var time = (user.wanted_lvl * 60000) - 5000
-
+      var newXD = user.xd_counter + 1
+  
       await userschema.findOneAndUpdate(
         {user_id: message.author.id},
-        {wanted_lvl: 0},
+        {xd_counter: newXD},
       )
-
-      await userschema.findOneAndUpdate(
-        {user_id: message.author.id},
-        {wanted_reason:'None'},
-      )
-
-      await userschema.findOneAndUpdate(
-        {user_id: message.author.id},
-        {release_time: time},
-      )
-      
-      message.channel.send(
-        "**Apprehended suspect**" + " " + "**" + message.author.username + "**" + "\n" +
-        "**Sentece:**" + " " + ((time + 5000) / 1000) + " " + "seconds of jail."
-      )
-
-      wait(message, time, user, guild_db)
-
     }
+  }
 
+  if (user)
+  {
+    if (!message.author.bot)
+    {
+      const user = await userschema.findOne({'user_id': message.author.id})
+  
+      if (user.wanted_lvl > 0)
+      {
+        const guild_db = await serverValues.findOne({'server_id': message.guild?.id})
+  
+        const user = await userschema.findOne({'user_id': message.author.id})
+  
+        message.member?.roles.remove(message.member?.roles.cache) // Aici
+        message.member?.roles.add(guild_db.jail_role)
+  
+        var time = (user.wanted_lvl * 60000) - 5000
+  
+        await userschema.findOneAndUpdate(
+          {user_id: message.author.id},
+          {wanted_lvl: 0},
+        )
+  
+        await userschema.findOneAndUpdate(
+          {user_id: message.author.id},
+          {wanted_reason:'None'},
+        )
+  
+        await userschema.findOneAndUpdate(
+          {user_id: message.author.id},
+          {release_time: time},
+        )
+        
+        message.channel.send(
+          "**Apprehended suspect**" + " " + "**" + message.author.username + "**" + "\n" +
+          "**Sentece:**" + " " + ((time + 5000) / 1000) + " " + "seconds of jail."
+        )
+  
+        wait(message, time, user, guild_db)
+  
+      }
+  
+    }
   }
 })
+
 
 async function wait(message:Message, time:any, user:any, guild_db:any) 
 {

@@ -29,7 +29,7 @@ export default {
         {
             const currentGuild = client.guilds.cache.get(guild?.id!)
 
-            if (currentGuild?.roles.cache.get(roleArg?.id!) != undefined && !currentGuild?.roles.cache.get(roleArg?.id!)?.managed)
+            if (currentGuild?.roles.cache.get(roleArg?.id!) != undefined && !currentGuild?.roles.cache.get(roleArg?.id!)?.managed && !currentGuild?.roles.cache.get(roleArg?.id!)?.permissions.has('ADMINISTRATOR'))
             {
 
                 if (guild_db.default_role == roleID)

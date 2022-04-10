@@ -23,7 +23,6 @@ export default {
         var wantedLevel = parseInt(args[1])
         var reason = args.slice(2).toString().replace(/,/g, ' ')
 
-
         const men_user = await userschema.findOne({'user_id': userID})
         const author = await userschema.findOne({'user_id': message.author.id})
 
@@ -34,11 +33,11 @@ export default {
         const defaultRole = await message.guild?.roles.cache.find(x => x.id === guild_db?.default_role)
         const jailRole = await message.guild?.roles.cache.find(x => x.id === guild_db?.jail_role)
 
-        // if (userID == '415241379866869771')
-        // {
-        //     message.reply("**I can't give Kayu himself a wanted level.**")
-        //     return
-        // }
+        if (userID == '415241379866869771')
+        {
+            message.reply("**I can't give Kayu himself a wanted level.**")
+            return
+        }
             
         const currentGuild = client.guilds.cache.get(guild?.id!)
             
@@ -49,12 +48,13 @@ export default {
         }
 
         var mem = await guild?.members.fetch(userID)
+        var auth = await guild?.members.fetch(message.author.id)
         
         if (guild_db && defaultRole != undefined && jailRole != undefined)
         {
             if (author.is_officer)
             {
-                if (author.wanted_lvl < 1 && !mem?.roles.cache.some((role:any) => role.id === guild_db?.jail_role))
+                if (author.wanted_lvl < 1 && !auth?.roles.cache.some((role:any) => role.id === guild_db?.jail_role))
                 {
         
                     if (men_user) 

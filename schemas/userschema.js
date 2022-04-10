@@ -10,7 +10,8 @@ const schema = new mongoose_1.default.Schema({
     is_officer: { type: Boolean, required: true, default: false },
     wanted_lvl: { type: Number, required: true, default: 0 },
     wanted_reason: { type: String, required: true, default: ' ' },
-    release_time: { type: Number, required: true, default: 0 }
+    release_time: { type: Number, required: true, default: 0 },
+    xd_counter: { type: Number, default: 0 }
 });
 // schema.plugin(mongooseUniqueValidator)
 exports.default = mongoose_1.default.model('users', schema, 'users');

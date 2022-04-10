@@ -8,28 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
+const userschema_1 = __importDefault(require("../../schemas/userschema"));
 exports.default = {
-    category: "NSFW",
-    description: "View some nice hentai.",
+    category: "Meme",
+    description: "View your XD Counter.",
     callback: ({ channel, message, args }) => __awaiter(void 0, void 0, void 0, function* () {
-        const hmtai = require("hmtai");
-        const whatType = hmtai.nsfw.boobjob();
-        if (channel.nsfw) {
-            const tempEmbed = new discord_js_1.MessageEmbed()
-                .setColor('#0099ff')
-                .setTitle('Here, take some lewds :)')
-                .setURL(whatType)
-                .setImage(whatType);
-            yield channel.send({ embeds: [tempEmbed] });
+        var user = yield userschema_1.default.findOne({ 'user_id': message.author.id });
+        var sgpl = "";
+        if (user) {
+            if (user.xd_counter == 1) {
+                sgpl = "** time.**";
+            }
+            else {
+                sgpl = "** times.**";
+            }
+            message.reply("**You have said XD a total of **" + user.xd_counter.toString() + sgpl);
         }
         else {
-            const tempEmbed = new discord_js_1.MessageEmbed()
-                .setColor('#0099ff')
-                .setTitle('Hol\' up! No NSFW allowed here!')
-                .setImage('https://i.imgur.com/oe4iK5i.gif');
-            yield channel.send({ embeds: [tempEmbed] });
+            message.reply("**Database error. Contact developer.**");
         }
     })
 };

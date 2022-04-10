@@ -40,13 +40,14 @@ export default {
         }
 
         var mem = await guild?.members.fetch(userID)
+        var auth = await guild?.members.fetch(message.author.id)
         
         if (guild_db && defaultRole != undefined && jailRole != undefined)
         {
         
             if (author.is_officer)
             {
-                if (author.wanted_lvl < 1 && !mem?.roles.cache.some((role:any) => role.id === guild_db?.jail_role))
+                if (author.wanted_lvl < 1 && !auth?.roles.cache.some((role:any) => role.id === guild_db?.jail_role))
                 {
     
                     if (men_user)
