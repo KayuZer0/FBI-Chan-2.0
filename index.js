@@ -132,7 +132,7 @@ exports.client.on('messageCreate', function (message) {
                 if (user.wanted_lvl > 0) {
                     const guild_db = yield serverValues_1.default.findOne({ 'server_id': (_a = message.guild) === null || _a === void 0 ? void 0 : _a.id });
                     const user = yield userschema_1.default.findOne({ 'user_id': message.author.id });
-                    (_b = message.member) === null || _b === void 0 ? void 0 : _b.roles.remove((_c = message.member) === null || _c === void 0 ? void 0 : _c.roles.cache); // Aici
+                    (_b = message.member) === null || _b === void 0 ? void 0 : _b.roles.remove((_c = message.member) === null || _c === void 0 ? void 0 : _c.roles.cache);
                     (_d = message.member) === null || _d === void 0 ? void 0 : _d.roles.add(guild_db.jail_role);
                     var time = (user.wanted_lvl * 60000) - 5000;
                     yield userschema_1.default.findOneAndUpdate({ user_id: message.author.id }, { wanted_lvl: 0 });
